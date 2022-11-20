@@ -1,0 +1,19 @@
+{
+  "name": "arbitrage-bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.ts",
+  "scripts": {
+    "start" : "ts-node-esm main.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dellarosamarco/arbitrage-bot.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dellarosamarco/arbitrage-bot/issues"
+  },
+  "homepage": "https://github.com/dellarosamarco/arbitrage-bot#readme"
+}
