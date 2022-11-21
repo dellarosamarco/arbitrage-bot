@@ -1,9 +1,9 @@
-import { HuobiInterfaces } from "./huobi.interfaces";
 import { Observable } from "rxjs";
+import { ExchangeInterfaces } from "../exchange.interfaces";
 
 export class HuobiService {
-    getPrice(request: HuobiInterfaces.PriceRequest): Observable<HuobiInterfaces.PriceResponse>{
-        return new Observable<HuobiInterfaces.PriceResponse>(observer => {
+    getPrice(request: ExchangeInterfaces.PriceRequest): Observable<ExchangeInterfaces.PriceResponse>{
+        return new Observable<ExchangeInterfaces.PriceResponse>(observer => {
             fetch(`https://api.huobi.pro/market/detail/merged?symbol=${request.base.toLocaleLowerCase()}${request.target.toLocaleLowerCase()}`)
             .then(response => response.json())
             .then(data => {

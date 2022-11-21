@@ -1,6 +1,7 @@
 import { Coins } from "../coins";
 
-export namespace HuobiInterfaces {
+
+export namespace ExchangeInterfaces {
     export interface PriceResponse {
         "price": number
     }

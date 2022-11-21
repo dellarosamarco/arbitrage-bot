@@ -1,10 +1,8 @@
-import { BinanceInterfaces } from "../exchanges/binance/binance.interfaces";
 import { BinanceService } from "../exchanges/binance/binance.service";
-import { Coins } from "../exchanges/coins";
-import { HuobiInterfaces } from "../exchanges/huobi/huobi.interfaces";
+import { Coins } from "../coins";
 import { HuobiService } from "../exchanges/huobi/huobi.service";
-import { KucoinInterfaces } from "../exchanges/kucoin/kucoin.interfaces";
 import { KucoinService } from "../exchanges/kucoin/kucoin.service";
+import { ExchangeInterfaces } from "../exchanges/exchange.interfaces";
 
 export class ArbitrageBot {
 
@@ -21,30 +19,20 @@ export class ArbitrageBot {
     }
 
     test(){
-        const kucoinRequest: KucoinInterfaces.PriceRequest = {
+        const request: ExchangeInterfaces.PriceRequest = {
             base: Coins.BITCOIN,
             target: Coins.USDT
         };
         
-        const binanceRequest: BinanceInterfaces.PriceRequest = {
-            base: Coins.BITCOIN,
-            target: Coins.USDT
-        };
-
-        const huobiRequest: HuobiInterfaces.PriceRequest = {
-            base: Coins.BITCOIN,
-            target: Coins.USDT
-        };
-        
-        this.kucoinService.getPrice(kucoinRequest).subscribe((response: KucoinInterfaces.PriceResponse) => {
+        this.kucoinService.getPrice(request).subscribe((response: ExchangeInterfaces.PriceResponse) => {
             console.log("Kucoin : ", response.price);
         });
         
-        this.binanceService.getPrice(binanceRequest).subscribe((response: BinanceInterfaces.PriceResponse) => {
+        this.binanceService.getPrice(request).subscribe((response: ExchangeInterfaces.PriceResponse) => {
             console.log("Binance : ", response.price);
         });
 
-        this.houbiService.getPrice(huobiRequest).subscribe((response: HuobiInterfaces.PriceResponse) => {
+        this.houbiService.getPrice(request).subscribe((response: ExchangeInterfaces.PriceResponse) => {
             console.log("Huobi : ", response.price);
         });
     }
