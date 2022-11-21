@@ -1,4 +1,4 @@
-export namespace Coins {
+export namespace ExchangeCoins {
     export const BITCOIN = 'BTC';
     export const USDT = 'USDT';
     export const XLM = 'XLM';

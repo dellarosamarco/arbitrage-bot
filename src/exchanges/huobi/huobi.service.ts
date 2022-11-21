@@ -1,4 +1,5 @@
 import { Observable } from "rxjs";
+import { Exchange } from "../exchange";
 import { ExchangeInterfaces } from "../exchange.interfaces";
 
 export class HuobiService {
@@ -10,7 +11,8 @@ export class HuobiService {
                 observer.next({
                     price: data.tick.ask[0],
                     base: request.base,
-                    target: request.target
+                    target: request.target,
+                    exchange: Exchange.HUOBI
                 });
                 observer.complete();
             })

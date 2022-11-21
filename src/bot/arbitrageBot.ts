@@ -1,8 +1,9 @@
 import { BinanceService } from "../exchanges/binance/binance.service";
-import { Coins } from "../coins";
+import { ExchangeCoins } from "../exchanges/exchange.coins";
 import { HuobiService } from "../exchanges/huobi/huobi.service";
 import { KucoinService } from "../exchanges/kucoin/kucoin.service";
 import { ExchangeInterfaces } from "../exchanges/exchange.interfaces";
+import { forkJoin } from "rxjs";
 
 export class ArbitrageBot {
 
@@ -20,21 +21,18 @@ export class ArbitrageBot {
 
     test(){
         const request: ExchangeInterfaces.PriceRequest = {
-            base: Coins.BITCOIN,
-            target: Coins.USDT
+            base: ExchangeCoins.BITCOIN,
+            target: ExchangeCoins.USDT
         };
         
-        this.kucoinService.getPrice(request).subscribe((response: ExchangeInterfaces.PriceResponse) => {
-            console.log(response.base + ' ' +response.target, response.price);
-        });
-        
-        this.binanceService.getPrice(request).subscribe((response: ExchangeInterfaces.PriceResponse) => {
-            console.log(response.base + ' ' +response.target, response.price);
-        });
-
-        this.houbiService.getPrice(request).subscribe((response: ExchangeInterfaces.PriceResponse) => {
-            console.log(response.base + ' ' +response.target, response.price);
+        forkJoin({
+            binanceResponse: this.binanceService.getPrice(request),
+            kucoinResponse: this.kucoinService.getPrice(request),
+            huobiResponse: this.houbiService.getPrice(request)
+        }).subscribe(({ binanceResponse, kucoinResponse, huobiResponse }) => {
+            console.log(binanceResponse.exchange + ': ' + binanceResponse.base + '/' + binanceResponse.target, binanceResponse.price);
+            console.log(kucoinResponse.exchange + ': ' + kucoinResponse.base + '/' + kucoinResponse.target, kucoinResponse.price);
+            console.log(huobiResponse.exchange + ': ' + huobiResponse.base + '/' + huobiResponse.target, huobiResponse.price);
         });
     }
-    
 }

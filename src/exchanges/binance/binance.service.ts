@@ -1,4 +1,5 @@
 import { Observable } from "rxjs";
+import { Exchange } from "../exchange";
 import { ExchangeInterfaces } from "../exchange.interfaces";
 
 export class BinanceService {
@@ -10,7 +11,8 @@ export class BinanceService {
                 observer.next({
                     ...data,
                     base: request.base,
-                    target: request.target
+                    target: request.target,
+                    exchange: Exchange.BINANCE
                 });
                 observer.complete();
             })
