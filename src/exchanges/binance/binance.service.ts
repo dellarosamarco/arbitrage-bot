@@ -7,7 +7,11 @@ export class BinanceService {
             fetch(`https://api1.binance.com/api/v3/ticker/price?symbol=${request.base}${request.target}`)
             .then(response => response.json())
             .then(data => {
-                observer.next(data);
+                observer.next({
+                    ...data,
+                    base: request.base,
+                    target: request.target
+                });
                 observer.complete();
             })
             .catch(err => observer.error(err));

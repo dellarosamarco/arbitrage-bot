@@ -25,15 +25,15 @@ export class ArbitrageBot {
         };
         
         this.kucoinService.getPrice(request).subscribe((response: ExchangeInterfaces.PriceResponse) => {
-            console.log("Kucoin : ", response.price);
+            console.log(response.base + ' ' +response.target, response.price);
         });
         
         this.binanceService.getPrice(request).subscribe((response: ExchangeInterfaces.PriceResponse) => {
-            console.log("Binance : ", response.price);
+            console.log(response.base + ' ' +response.target, response.price);
         });
 
         this.houbiService.getPrice(request).subscribe((response: ExchangeInterfaces.PriceResponse) => {
-            console.log("Huobi : ", response.price);
+            console.log(response.base + ' ' +response.target, response.price);
         });
     }
     

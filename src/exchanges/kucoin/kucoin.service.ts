@@ -7,7 +7,11 @@ export class KucoinService {
             fetch(`https://api.kucoin.com/api/v1/market/orderbook/level1?symbol=${request.base}-${request.target}`)
             .then(response => response.json())
             .then(data => {
-                observer.next(data.data);
+                observer.next({
+                    ...data.data,
+                    base: request.base,
+                    target: request.target
+                });
                 observer.complete();
             })
             .catch(err => observer.error(err));

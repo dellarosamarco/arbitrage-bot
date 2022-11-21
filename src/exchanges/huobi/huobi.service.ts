@@ -7,7 +7,11 @@ export class HuobiService {
             fetch(`https://api.huobi.pro/market/detail/merged?symbol=${request.base.toLocaleLowerCase()}${request.target.toLocaleLowerCase()}`)
             .then(response => response.json())
             .then(data => {
-                observer.next({ price: data.tick.ask[0] });
+                observer.next({
+                    price: data.tick.ask[0],
+                    base: request.base,
+                    target: request.target
+                });
                 observer.complete();
             })
             .catch(err => observer.error(err));

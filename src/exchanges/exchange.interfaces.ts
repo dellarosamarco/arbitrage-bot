@@ -2,7 +2,7 @@ import { Coins } from "../coins";
 
 
 export namespace ExchangeInterfaces {
-    export interface PriceResponse {
+    export interface PriceResponse extends PriceRequest{
         "price": number
     }
 
