@@ -1,4 +1,4 @@
-import { BinanceCoins } from "./binance.coins";
+import { Coins } from "../coins";
 
 export namespace BinanceInterfaces {
     export interface PriceResponse {
@@ -6,7 +6,7 @@ export namespace BinanceInterfaces {
     }
 
     export interface PriceRequest {
-        base: BinanceCoins.coins;
-        target: BinanceCoins.coins;
+        base: Coins.coins;
+        target: Coins.coins;
     }
 }

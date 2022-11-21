@@ -1,4 +1,4 @@
-import { HuobiCoins } from "./huobi.coins";
+import { Coins } from "../coins";
 
 export namespace HuobiInterfaces {
     export interface PriceResponse {
@@ -6,7 +6,7 @@ export namespace HuobiInterfaces {
     }
 
     export interface PriceRequest {
-        base: HuobiCoins.coins;
-        target: HuobiCoins.coins;
+        base: Coins.coins;
+        target: Coins.coins;
     }
 }

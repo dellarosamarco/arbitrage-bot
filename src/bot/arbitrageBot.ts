@@ -1,10 +1,8 @@
-import { BinanceCoins } from "../exchanges/binance/binance.coins";
 import { BinanceInterfaces } from "../exchanges/binance/binance.interfaces";
 import { BinanceService } from "../exchanges/binance/binance.service";
-import { HuobiCoins } from "../exchanges/huobi/huobi.coins";
+import { Coins } from "../exchanges/coins";
 import { HuobiInterfaces } from "../exchanges/huobi/huobi.interfaces";
 import { HuobiService } from "../exchanges/huobi/huobi.service";
-import { KucoinCoins } from "../exchanges/kucoin/kucoin.coins";
 import { KucoinInterfaces } from "../exchanges/kucoin/kucoin.interfaces";
 import { KucoinService } from "../exchanges/kucoin/kucoin.service";
 
@@ -24,18 +22,18 @@ export class ArbitrageBot {
 
     test(){
         const kucoinRequest: KucoinInterfaces.PriceRequest = {
-            base: KucoinCoins.BITCOIN,
-            target: KucoinCoins.USDT
+            base: Coins.BITCOIN,
+            target: Coins.USDT
         };
         
         const binanceRequest: BinanceInterfaces.PriceRequest = {
-            base: BinanceCoins.BITCOIN,
-            target: BinanceCoins.USDT
+            base: Coins.BITCOIN,
+            target: Coins.USDT
         };
 
         const huobiRequest: HuobiInterfaces.PriceRequest = {
-            base: HuobiCoins.BITCOIN,
-            target: HuobiCoins.USDT
+            base: Coins.BITCOIN,
+            target: Coins.USDT
         };
         
         this.kucoinService.getPrice(kucoinRequest).subscribe((response: KucoinInterfaces.PriceResponse) => {

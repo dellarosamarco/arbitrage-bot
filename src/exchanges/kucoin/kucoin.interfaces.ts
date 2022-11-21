@@ -1,4 +1,4 @@
-import { KucoinCoins } from "./kucoin.coins";
+import { Coins } from "../coins";
 
 export namespace KucoinInterfaces {
     export interface PriceResponse {
@@ -6,7 +6,7 @@ export namespace KucoinInterfaces {
     }
 
     export interface PriceRequest {
-        base: KucoinCoins.coins;
-        target: KucoinCoins.coins;
+        base: Coins.coins;
+        target: Coins.coins;
     }
 }
