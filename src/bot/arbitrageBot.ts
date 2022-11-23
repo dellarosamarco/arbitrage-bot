@@ -4,6 +4,7 @@ import { HuobiService } from "../exchanges/huobi/huobi.service";
 import { KucoinService } from "../exchanges/kucoin/kucoin.service";
 import { ExchangeInterfaces } from "../exchanges/exchange.interfaces";
 import { forkJoin } from "rxjs";
+import { BinanceAPI } from "../exchanges/binance/binanceAPI.interfaces";
 
 export class ArbitrageBot {
 
@@ -16,7 +17,7 @@ export class ArbitrageBot {
 
         ArbitrageBot.instance = this;
 
-        this.test();
+        this.test2();
     }
 
     test(){
@@ -33,6 +34,25 @@ export class ArbitrageBot {
             console.log(binanceResponse.exchange + ': ' + binanceResponse.base + '/' + binanceResponse.target, binanceResponse.price);
             console.log(kucoinResponse.exchange + ': ' + kucoinResponse.base + '/' + kucoinResponse.target, kucoinResponse.price);
             console.log(huobiResponse.exchange + ': ' + huobiResponse.base + '/' + huobiResponse.target, huobiResponse.price);
+        });
+    }
+
+    test2(){
+        const request: ExchangeInterfaces.PriceRequest[] = [
+            {
+                base: ExchangeCoins.BITCOIN,
+                target: ExchangeCoins.USDT
+            },
+            {
+                base: ExchangeCoins.XLM,
+                target: ExchangeCoins.USDT
+            },
+        ];
+
+        this.binanceService.getPrices(request).subscribe((response: ExchangeInterfaces.PriceResponse[]) => {
+            response.forEach((_response: ExchangeInterfaces.PriceResponse) => {
+                console.log(_response.exchange + ': ' + _response.base + '/' + _response.target, _response.price);
+            })
         });
     }
 }
