@@ -4,36 +4,37 @@ import { HuobiService } from "../exchanges/huobi/huobi.service";
 import { KucoinService } from "../exchanges/kucoin/kucoin.service";
 import { ExchangeInterfaces } from "../exchanges/exchange.interfaces";
 import { forkJoin } from "rxjs";
-import { BinanceAPI } from "../exchanges/binance/binanceAPI.interfaces";
 
 export class ArbitrageBot {
-
     static instance: ArbitrageBot;
 
-    constructor(private kucoinService: KucoinService, private binanceService: BinanceService, private houbiService: HuobiService){
+    constructor(
+        private kucoinService: KucoinService, 
+        private binanceService: BinanceService, 
+        private houbiService: HuobiService,
+        private requests: ExchangeInterfaces.PriceRequest[]
+    ){
         if(ArbitrageBot.instance !== undefined){
             throw('Only one instance of Arbitrage Bot is allowed.')
         }
 
         ArbitrageBot.instance = this;
 
-        this.test2();
+        this.requests.forEach((request: ExchangeInterfaces.PriceRequest) => this.getTicker(request));
     }
 
-    test(){
-        const request: ExchangeInterfaces.PriceRequest = {
-            base: ExchangeCoins.BITCOIN,
-            target: ExchangeCoins.USDT
-        };
-        
+    getTicker(request: ExchangeInterfaces.PriceRequest){       
         forkJoin({
             binanceResponse: this.binanceService.getPrice(request),
             kucoinResponse: this.kucoinService.getPrice(request),
             huobiResponse: this.houbiService.getPrice(request)
         }).subscribe(({ binanceResponse, kucoinResponse, huobiResponse }) => {
-            console.log(binanceResponse.exchange + ': ' + binanceResponse.base + '/' + binanceResponse.target, binanceResponse.price);
-            console.log(kucoinResponse.exchange + ': ' + kucoinResponse.base + '/' + kucoinResponse.target, kucoinResponse.price);
-            console.log(huobiResponse.exchange + ': ' + huobiResponse.base + '/' + huobiResponse.target, huobiResponse.price);
+            console.log('\n-------------------------------------------------------')
+            console.log(request.base + '/' + request.target)
+            console.log(binanceResponse.exchange + ': ' + binanceResponse.price);
+            console.log(kucoinResponse.exchange + ': ' + kucoinResponse.price);
+            console.log(huobiResponse.exchange + ': ' + huobiResponse.price);
+            console.log('-------------------------------------------------------\n')
         });
     }
 
