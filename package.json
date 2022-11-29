@@ -18,5 +18,8 @@
   "homepage": "https://github.com/dellarosamarco/arbitrage-bot#readme",
   "dependencies": {
     "rxjs": "^7.5.7"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.9"
   }
 }
