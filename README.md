@@ -3,6 +3,9 @@
 ```
 npm start --tickers="BTCUSDT, ETHUSDT"
 ```
+```
+npm start --tickers"{ticker}, ..., {ticker}"
+```
 #### Supported Symbols :
 - BTC
 - ETH
